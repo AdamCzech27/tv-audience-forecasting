@@ -1,4 +1,4 @@
-artifact_path: /home/adam/github/tv-audience-forecasting/PredShare/mlruns/2/models/m-9e5750ff81ea4858b792fc149760641f/artifacts
+artifact_path: /home/adam/github/tv-audience-forecasting/PredShare/mlruns/2/models/m-23a38ff0153e473d8179dd2005f7ea0b/artifacts
 flavors:
   python_function:
     data: model.ubj
@@ -14,9 +14,9 @@ flavors:
     model_format: ubj
     xgb_version: 3.2.0
 mlflow_version: 3.10.1
-model_id: m-9e5750ff81ea4858b792fc149760641f
-model_size_bytes: 573124
-model_uuid: m-9e5750ff81ea4858b792fc149760641f
+model_id: m-23a38ff0153e473d8179dd2005f7ea0b
+model_size_bytes: 591695
+model_uuid: m-23a38ff0153e473d8179dd2005f7ea0b
 prompts: null
-run_id: a14efd0cea304b1aad36a2a742309f5f
-utc_time_created: '2026-03-09 11:12:39.871006'
+run_id: c7bc35b589fd44248b4a64f04b11bd8f
+utc_time_created: '2026-03-09 13:41:08.630437'
