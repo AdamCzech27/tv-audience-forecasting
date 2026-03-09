@@ -84,7 +84,7 @@ class DataPreprocessor:
         return df
 
     def transform_to_long(self, df):
-        """Converts wide data (chX__) to long format."""
+        """Prejmenovani slopcu pro potrebu uptravu tabulky"""
         consolidated_list = []
         unique_channels = df['channel_id'].unique()
 
@@ -92,7 +92,6 @@ class DataPreprocessor:
             prefix = f'ch{chid}__'
             specific_cols = [col for col in df.columns if prefix in col]
             
-            # Extract and rename columns for this specific channel
             temp_df = df.loc[df['channel_id'] == chid, self.fix_cols + specific_cols].copy()
             temp_df.columns = self.fix_cols + [col.replace(prefix, '') for col in specific_cols]
             
@@ -101,11 +100,10 @@ class DataPreprocessor:
         return pd.concat(consolidated_list, ignore_index=True)
 
     def extract_time_features(self, df):
-            """Creates numerical features from the datetime column, including Czech holidays."""
-            # Ensure it's datetime
+            """Extrace dat z casove promenne a pridani ceskych svatku."""
             df['timeslot_datetime_from'] = pd.to_datetime(df['timeslot_datetime_from'])
             
-            # Initialize Czech holidays (CZ)
+            # CZ svatky
             cz_holidays = holidays.CZ()
             
             # Extract basic features
@@ -126,8 +124,7 @@ class DataPreprocessor:
     
     def add_content_type(self, df):
         """
-        Distinguishes between movies, series and other content 
-        using the decoded metadata (f_7, f_9, f_10).
+        Rozklad domnivajicich se promennych zamerujici se na film
         """
         # 1. Definujeme si filmové žánry (podle tvé tabulky ty s dlouhou stopáží)
         movie_genres = [
@@ -164,9 +161,9 @@ class DataPreprocessor:
         """
         # Definujeme, jak se má která skupina sloupců chovat
         aggregation_logic = {
-            'timeslot_datetime_from': 'min',    # Začátek pořadu
-            'share_15_54': 'mean',              # Průměrný share
-            'share_15_54_3mo_mean': 'first',    # Historický průměr (zůstává stejný)
+            'timeslot_datetime_from': 'min',    
+            'share_15_54': 'mean',             
+            'share_15_54_3mo_mean': 'first',    
             'channel_id': 'first',
             'day_of_week': 'first',
             'month': 'first',
